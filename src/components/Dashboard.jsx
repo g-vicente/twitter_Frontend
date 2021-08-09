@@ -1,11 +1,17 @@
 import React from 'react'
 import './dashboard.css'
+import LeftPanel from "./LeftPanel";
+import RightPanel from "./RightPanel";
 
 function Dashboard() {
     return (       
 	<div>
+      <div className="row">
+        <div className="col-3">
+          <LeftPanel />
+        </div>
+        <div className="col-6">
 		{/* <!-- sidebar starts -->
-		<%- include ("leftPanel") %>
 		<%- include ("modal") %>
 		<%- include ("modalTweet") %>
 		<!-- sidebar ends --> */}
@@ -35,7 +41,7 @@ function Dashboard() {
 			{/* <% tweets.forEach(tweet => { %> */}
 			<div class="post">
 				<div class="post__avatar">
-					<img src="<%=tweet.author.photo%>" alt="Foto autor del Tweet" />
+					<img src="" alt="Foto autor del Tweet" />
 				</div>
 
 				<div class="post__body">
@@ -83,6 +89,11 @@ function Dashboard() {
 			<% }) %> */}
 		</div>
         </div>
+        </div>
+        <div className="col-3">
+          <RightPanel />
+        </div>
+      </div>
     )
 }
 

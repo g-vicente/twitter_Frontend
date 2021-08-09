@@ -1,23 +1,26 @@
 import "./App.css";
-import LeftPanel from "./components/LeftPanel";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import RightPanel from "./components/RightPanel";
+import Profile from "./components/Profile";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
+import Index from "./components/Index";
+import NoMatch from "./components/NoMatch";
 
 function App() {
   return (
-    <div className="App">
-      <div className="row">
-        <div className="col-3">
-          <LeftPanel />
-        </div>
-        <div className="col-6">
-          <Dashboard />
-        </div>
-        <div className="col-3">
-          <RightPanel />
-        </div>
+    <Router>
+      <div className="App bg-dark bg-gradient">
+        <Switch>
+          <Route exact path="/" component={Dashboard} />
+          <Route path="/:username" component={Profile} />
+          <Route path={`/signup`} component={SignUp} />
+          <Route path={`/signin`} component={SignIn} />
+          <Route path="/index" component={Index} />
+          <Route component={NoMatch} />
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
 
