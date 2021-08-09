@@ -3,7 +3,7 @@ import "./index.css";
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
 import { Link, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 const Profile = () => {
 	const { username } = useParams();
@@ -39,7 +39,7 @@ const Profile = () => {
 					<main>
 						<div className="first-part">
 							<div>
-								<a className="home">Home</a>
+								<Link className="home">Home</Link>
 							</div>
 							<div>
 								<i className="far fa-star"></i>
@@ -66,22 +66,22 @@ const Profile = () => {
 										<span>{profile.username}</span>
 									</div>
 									{/* <%if (loggedUser&&loggedUser.id !== user.id) {%>
-                  <!-- aa -->
-                  <% if(!loggedUser.following.some(arrVal => user.id===
-                  arrVal.toString() )){%> */}
+									<!-- aa -->
+									<% if(!loggedUser.following.some(arrVal => user.id===
+									arrVal.toString() )){%> */}
 									{/* <a href="/follow/<%= user.id %>">Follow</a> */}
-									<Link to={`/follow/:user.id`}>Follow</Link>
+									<Link to={`/follow/${profile.id}`}>Follow</Link>  //Cambiar a por un onClick
 									{/* <%}else{%> */}
-									<a href="/unfollow/<%= user.id %>">Unfollow</a>
+									<Link to={`/unfollow/${profile.id}`}>Unfollow</Link>
 									{/* <%}%><%}%> */}
 								</div>
 								<div className="post-icons">
 									<div className="second-post-icons">
 										<i className="far fa-circle"></i>
 										<i className="fas fa-plus-circle"></i>
-										<a href="/userUpdate/<%= user.id %>">
+										<Link to={`/edit/${profile.username}`}>
 											Edit Profile
-										</a>
+										</Link>
 									</div>
 								</div>
 							</form>
@@ -126,7 +126,7 @@ const Profile = () => {
 									{/* if(!loggedUser.tweetsLiked.some(arrVal => tweet.id===
                   arrVal.toString() )){%> */}
 											<a href="/like/<%=tweet.id%>">
-												<i className="far fa-heart">
+												<i className="far fa-heart"> //Cambiar a por un onClick
 													{tweet.likes}
 												</i>
 											</a>
