@@ -3,15 +3,17 @@ import "./index.css";
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
 import { Link, useParams } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 const Profile = () => {
+    const loggedUser = useSelector(state=>state);
 	const { username } = useParams();
 
 	const [profile, setProfile] = useState({});
 	const [tweet, setTweet] = useState([]);
 
 	useEffect(() => {
+        
 		async function api() {
 			const response = await fetch(`http://localhost:3001/${username}`, {
 				method: "GET",
@@ -26,6 +28,15 @@ const Profile = () => {
 		}
 		api();
 	}, []);
+
+ /*    async function handlerFollow() {
+        cambiar el boton a unfollow
+        enviar json logeado y follow
+    }
+ */
+ /*    async function handlerUnfollow() {
+        cambiar el boton a unfollow
+    } */
 
 	return (
 		<div>
@@ -65,15 +76,12 @@ const Profile = () => {
 										/>
 										<span>{profile.username}</span>
 									</div>
-									{/* <%if (loggedUser&&loggedUser.id !== user.id) {%>
-									<!-- aa -->
-									<% if(!loggedUser.following.some(arrVal => user.id===
-									arrVal.toString() )){%> */}
-									{/* <a href="/follow/<%= user.id %>">Follow</a> */}
-									<Link to={`/follow/${profile.id}`}>Follow</Link>  //Cambiar a por un onClick
-									{/* <%}else{%> */}
-									<Link to={`/unfollow/${profile.id}`}>Unfollow</Link>
-									{/* <%}%><%}%> */}
+									{/* {(loggedUser&&loggedUser.user.username !== username)} */}
+                                    {!loggedUser.user.following.some(arrVal => profile.id===
+									arrVal.toString() ) ? 
+                                    <button onClick={console.log(1)}></button>:
+                                    <button onClick={console.log(2)}></button>}
+                                  
 								</div>
 								<div className="post-icons">
 									<div className="second-post-icons">

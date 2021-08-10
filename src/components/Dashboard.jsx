@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
+import { useSelector, useDispatch } from "react-redux";
 
 function Dashboard() {
+	const loggedUser = useSelector(state=>state);
+	const dispatch = useDispatch();
+	useEffect(() => {
+			dispatch({
+				type: "SET_USER",
+				payload: loggedUser,
+				});
+	}, []);
+
 	return (
 		<div>
 			<div className="row">
@@ -19,7 +29,7 @@ function Dashboard() {
 					{/* <!-- feed starts --> */}
 					<div className="feed">
 						<div className="feed__header">
-							<h2>Home</h2>
+							<h2 onClick={(console.log(loggedUser.user.following))}>Home</h2>
 						</div>
 
 						{/* <!-- tweetbox starts --> */}

@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 function SignIn() {
+
+	useEffect(() => {
+		async function api() {
+			const response = await fetch(`http://localhost:3001/login`, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+			});
+			const { loggedUser } = await response.json();
+		}
+		api();
+	}, []);
+
     return (
         <div>
             <div className="ruban">
