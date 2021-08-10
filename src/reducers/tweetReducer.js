@@ -14,6 +14,12 @@ export default function taskReducer(state = { loggedUser: {} }, action) {
         loggedUser: {},
       };
     }
+    case "SET_FOLLOW": {
+      return (state.loggedUser = {
+        ...state.loggedUser,
+        following: [...state.loggedUser.following, action.payload],
+      });
+    }
     default:
       return state;
   }
