@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  --twitter-color: #50b7f5;
-  --twitter-background: #e6ecf0;
-}
-
 .sidebarOption {
   display: flex;
   align-items: center;
@@ -55,6 +50,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding: 0 10px;
+  --twitter-color: #50b7f5;
+  --twitter-background: #e6ecf0;
 }
 
 .sidebar {

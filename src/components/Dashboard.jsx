@@ -1,18 +1,45 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./dashboard.css";
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
-import { useSelector, useDispatch } from "react-redux";
+import Tweet from "./Tweet";
 
 function Dashboard() {
-	const loggedUser = useSelector((state) => state);
+	const {loggedUser} = useSelector((state) => state.tweetReducer);
+	const token = useSelector(state=>state.token);
 	const dispatch = useDispatch();
 
+	const [tweet, setTweet] = useState([]);
+
 	useEffect(() => {
-		dispatch({
-			type: "SET_USER",
-			payload: loggedUser,
-		});
+		async function getTweets() {
+				try {
+					const data = {
+						following: loggedUser.following,
+						_id: loggedUser._id,
+						token: loggedUser.token
+					};
+					const response = await fetch("http://localhost:3001/", {
+						method: "POST",
+						headers: {
+							Accept: "application/json",
+							"Content-Type": "application/json",
+							"Authorization": `${token}`,
+						},
+						body: JSON.stringify(data),
+					});
+					const {tweets} = await response.json() 
+					setTweet(tweets);
+					dispatch({
+						type: "SET_TWEETS",
+						payload: tweets,
+					});
+				} catch {
+					return alert("Algo salio mal. Verifica los datos ingresados");
+				}
+			}
+		getTweets();
 	}, []);
 
 	return (
@@ -52,58 +79,7 @@ function Dashboard() {
 								</button>
 							</form>
 						</div>
-						{/* <!-- tweetbox ends -->
-
-			<!-- Tweets -->
-			{/* <% tweets.forEach(tweet => { %> */}
-						<div className="post">
-							<div className="post__avatar">
-								<img src="" alt="Foto autor del Tweet" />
-							</div>
-
-							<div className="post__body">
-								<div className="post__header">
-									<div className="post__headerText">
-										<h3>
-											{/* <a href="/<%=tweet.author.username%>"><%=tweet.author.firstname%></a>
-								<span className="post__headerSpecial"
-									><span className="material-icons post__badge">
-										verified <a href="/<%=tweet.author.username%>"></span>@<%=tweet.author.username%></span></a> */}
-											{/* <span className="date"
-									><% if
-									(!moment(tweet.date).isBefore(moment().startOf("day")))
-									{ %> <%= moment(tweet.date, "YYYYMMDD").fromNow(); %>
-									<% } else { %> <%= moment(tweet.date ,
-									"YYYYMMDD").format("MMM Do YY"); %> <% } %>
-								</span> */}
-										</h3>
-									</div>
-									<div className="post__headerDescription">
-										{/* <p><%= tweet.content %></p> */}
-									</div>
-								</div>
-								<div className="post__footer d-flex align-items-center">
-									<span className="material-icons"> repeat </span>
-									{/* <div className=" ">
-							<%if (loggedUser) {%> <% if(!loggedUser.tweetsLiked.some(arrVal =>
-							tweet.id=== arrVal.toString() )){%>
-							<a href="/like/<%=tweet.id%>">
-								<i className="material-icons unliked-tweet align-bottom">
-									favorite_border
-								</i></a
-							><span className="align-top"><%= tweet.likes %></span><%}else{%>
-							<a href="/unlike/<%=tweet.id%>">
-								<i className="material-icons liked-tweet align-bottom"> favorite </i></a
-							> <span className="align-top"><%= tweet.likes %></span>
-							<%}%><%}else{%>
-							<i className="material-icons align-bottom"> favorite_border </i> <span className="align-top"><%= tweet.likes %></span><% }%>
-						</div> */}
-									<span className="material-icons"> publish </span>
-								</div>
-							</div>
-						</div>
-						{/* <!-- post ends -->
-			<% }) %> */}
+						<Tweet tweet={tweet} />
 					</div>
 				</div>
 				<div className="col-3">

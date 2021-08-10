@@ -1,11 +1,31 @@
 import React from 'react'
 import './dashboard.css'
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 function LeftPanel() {
+    const dispatch = useDispatch();
+	const history = useHistory();
+    
+    const {loggedUser} = useSelector((state) => state.tweetReducer);
+
+    async function handleLogOut() {
+				dispatch({
+					type: "LOGOUT_REQUEST",
+				});
+                dispatch({
+					type: "CLEAR_DATA",
+				});
+				history.push("/signin");
+	}
+
     return (
         <div>
             <div className="sidebar">
+            <button onClick={(event) => {
+						handleLogOut();
+						event.preventDefault();
+					}}>LogOut</button>
                 <i className="fab fa-twitter"></i>
                 <div className="sidebarOption active">
                     <span className="material-icons"> home </span>
@@ -48,7 +68,7 @@ function LeftPanel() {
 
                 <div className="sidebarOption">
                     <span className="material-icons"> perm_identity </span>
-                    <Link to={`/:username`}> <h2>Profile</h2></Link>
+                    <Link to={`/${loggedUser.username}`}> <h2>Profile</h2></Link>
                 </div>
 
                 <Link to={`/modal`}>

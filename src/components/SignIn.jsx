@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import './signup.css'
 
 function SignIn() {
 	const [userName, setUsername] = useState("");

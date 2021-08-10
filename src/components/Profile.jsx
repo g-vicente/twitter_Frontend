@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./index.css";
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
-import { Link, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import moment from "moment";
+import Tweet from "./Tweet";
+
+
 const Profile = () => {
-    const loggedUser = useSelector(state=>state);
+    const {loggedUser} = useSelector(state=>state.tweetReducer);
+	const token = useSelector(state=>state.token);
 	const { username } = useParams();
 
 	const [profile, setProfile] = useState({});
@@ -20,6 +23,7 @@ const Profile = () => {
 				headers: {
 					Accept: "application/json",
 					"Content-Type": "application/json",
+					"Authorization": `${token}`,
 				},
 			});
 			const { user, tweets } = await response.json();
@@ -77,9 +81,9 @@ const Profile = () => {
 										<span>{profile.username}</span>
 									</div>
 									{/* {(loggedUser&&loggedUser.user.username !== username)} */}
-                                    {!loggedUser.user.following.some(arrVal => profile.id===
+                                    {!loggedUser.following.some(arrVal => profile.id===
 									arrVal.toString() ) ? 
-                                    <button onClick={console.log(1)}></button>:
+                                    <button onClick={console.log(loggedUser)}></button>:
                                     <button onClick={console.log(2)}></button>}
                                   
 								</div>
@@ -99,59 +103,7 @@ const Profile = () => {
 					{/* <!--TWEEEEEETS--> */}
 					<section id="tweets">
 						{/* <!--1 tweet--> */}
-						{tweet.map((tweet) => {
-							return (
-								<div className="tweet-1" key={tweet._id}>
-									<div className="tweet-img">
-										<img src={`${tweet.author.photo}`} alt="Avatar" />
-									</div>
-									<div className="tweet-txt">
-										<div className="tweet-name-date">
-											<strong> {tweet.author.firstname}</strong>
-											<span className="twitter-account">
-												@{tweet.author.username}
-											</span>
-											-
-											<span className="date">
-												{!moment(tweet.date).isBefore(
-													moment().startOf("day")
-												)
-													? moment(
-															tweet.date,
-															"YYYYMMDD"
-													  ).fromNow()
-													: moment(
-															tweet.date,
-															"YYYYMMDD"
-													  ).format("MMM Do YY")}
-											</span>
-										</div>
-										<div className="message">{tweet.content}</div>
-										<div className="tweet-icons">
-											<i className="far fa-comment"></i>
-											<i className="fas fa-retweet"></i>
-											{/* <%if (loggedUser) {%> <%
-									{/* if(!loggedUser.tweetsLiked.some(arrVal => tweet.id===
-                  arrVal.toString() )){%> */}
-											<a href="/like/<%=tweet.id%>">
-												<i className="far fa-heart"> //Cambiar a por un onClick
-													{tweet.likes}
-												</i>
-											</a>
-											{/* <%}else{%> */}
-											<a href="/unlike/<%=tweet.id%>">
-												<i className="fas fa-heart">
-													{tweet.likes}
-												</i>
-											</a>
-											{/* <%}%><%}else{%><i className="fas fa-heart"><%= tweet.likes %></i
-                  ><% }%> */}
-											<i className="fas fa-external-link-alt"></i>
-										</div>
-									</div>
-								</div>
-							);
-						})}
+						<Tweet tweet={tweet} />
 						{/* <!--1 tweet--> */}
 					</section>
 				</div>
