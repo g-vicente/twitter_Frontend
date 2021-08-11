@@ -40,19 +40,11 @@ const Profile = () => {
 	useEffect(() => {
 		async function apiFollow() {
 			try {
-				console.log("entros");
 				const data = {
 					id: loggedUser._id,
 					following: loggedUser.following,
 					token: loggedUser.token,
 				};
-				console.log("data", data);
-				console.log(
-					`http://localhost:3001/${following ? "follow" : "unfollow"}/${
-						profile._id
-					}`
-				);
-				console.log("aca llega");
 				await fetch(
 					`http://localhost:3001/${following ? "follow" : "unfollow"}/${
 						profile._id
@@ -68,9 +60,7 @@ const Profile = () => {
 					}
 				);
 
-				console.log("aca no llega");
 				const action = following ? "SET_FOLLOW" : "SET_UNFOLLOW";
-				console.log(action);
 				dispatch({
 					type: `${action}`,
 					payload: profile._id,
@@ -128,7 +118,6 @@ const Profile = () => {
 									<button
 										onClick={() => {
 											setFollowing((prev) => !prev);
-											console.log(following);
 										}}
 									>
 										Follow
@@ -137,7 +126,6 @@ const Profile = () => {
 									<button
 										onClick={() => {
 											setFollowing((prev) => !prev);
-											console.log(following);
 										}}
 									>
 										Unfollow
