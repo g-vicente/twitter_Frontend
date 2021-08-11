@@ -10,6 +10,7 @@ import NoMatch from "./components/NoMatch";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
+
 	return (
 		<Router>
 			<div className="App bg-dark bg-gradient">
@@ -25,6 +26,7 @@ function App() {
 			</div>
 		</Router>
 	);
+
 }
 
 export default App;

@@ -1,4 +1,5 @@
 export default function taskReducer(state = { loggedUser: {} }, action) {
+
 	switch (action.type) {
 		case "SET_LOGGED_USER": {
 			return { loggedUser: action.payload };
@@ -41,4 +42,5 @@ export default function taskReducer(state = { loggedUser: {} }, action) {
 		default:
 			return state;
 	}
+
 }

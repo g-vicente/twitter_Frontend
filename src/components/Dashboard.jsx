@@ -31,10 +31,6 @@ function Dashboard() {
 					});
 					const {tweets} = await response.json() 
 					setTweet(tweets);
-					dispatch({
-						type: "SET_TWEETS",
-						payload: tweets,
-					});
 				} catch {
 					return alert("Algo salio mal. Verifica los datos ingresados");
 				}
