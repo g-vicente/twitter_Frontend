@@ -6,9 +6,6 @@ export default function taskReducer(state = { loggedUser: {} }, action) {
     case "SET_USER": {
       return { profile: action.payload };
     }
-    case "SET_TWEETS": {
-      return { loggedUser: state.loggedUser, tweets: action.payload };
-    }
     case "CLEAR_DATA": {
       return {
         loggedUser: {},
