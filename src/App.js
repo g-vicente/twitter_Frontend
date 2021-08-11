@@ -15,11 +15,11 @@ function App() {
       <div className="App bg-dark bg-gradient">
         <Switch>
           <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
           <Route path="/index" component={Index} />
           <PrivateRoute exact path="/" component={Dashboard} />
           <Route path="/:username" component={Profile} />
           <Route path="/edit/:username" component={EditProfile} />
-          <Route path="/signup" component={SignUp} />
           <Route component={NoMatch} />
         </Switch>
       </div>
