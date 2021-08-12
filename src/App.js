@@ -10,21 +10,21 @@ import NoMatch from "./components/NoMatch";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
-  return (
-    <Router>
-      <div className="App bg-dark bg-gradient">
-        <Switch>
-          <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/index" component={Index} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/edit/:username" component={EditProfile} />
-          <Route path="/:username" component={Profile} />
-          <PrivateRoute exact path="/" component={Dashboard} />
-          <Route component={NoMatch} />
-        </Switch>
-      </div>
-    </Router>
-  );
+	return (
+		<Router>
+			<div className="App bg-dark bg-gradient container">
+				<Switch>
+					<Route exact path="/signin" component={SignIn} />
+					<Route exact path="/index" component={Index} />
+					<Route exact path="/signup" component={SignUp} />
+					<Route exact path="/edit/:username" component={EditProfile} />
+					<Route path="/:username" component={Profile} />
+					<PrivateRoute exact path="/" component={Dashboard} />
+					<Route component={NoMatch} />
+				</Switch>
+			</div>
+		</Router>
+	);
 }
 
 export default App;
