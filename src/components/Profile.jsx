@@ -148,7 +148,7 @@ const Profile = () => {
 					{/* <!--TWEEEEEETS-->  */}
 					<section id="tweets">
 						{/* <!--1 tweet--> */}
-						<Tweet tweet={tweet} />
+						<Tweet tweet={tweet} setTweet={setTweet} />
 						{/* <!--1 tweet--> }*/}
 					</section>
 				</div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import './signup.css'
+import "./signup.css";
 
 function SignIn() {
 	const [userName, setUsername] = useState("");
@@ -13,33 +13,31 @@ function SignIn() {
 
 	async function handleLogIn() {
 		if (userName && password) {
-			try {
-				const creds = {
-					username: userName,
-					password: password,
-				};
+			const creds = {
+				username: userName,
+				password: password,
+			};
 
-				const response = await fetch("http://localhost:3001/login", {
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(creds),
-				});
-				const user = await response.json();
-				dispatch({
-					type: "LOGIN_REQUEST",
-					payload: user.token,
-				});
-				dispatch({
-					type: "SET_LOGGED_USER",
-					payload: user,
-				});
+			const response = await fetch("http://localhost:3001/login", {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(creds),
+			});
+			const user = await response.json();
+			// console.log(user);
+			dispatch({
+				type: "LOGIN_REQUEST",
+				payload: user.token,
+			});
+			dispatch({
+				type: "SET_LOGGED_USER",
+				payload: user,
+			});
+			if (user) {
 				history.push("/");
-				// setPassword("");
-			} catch {
-				return alert("Algo salio mal. Verifica los datos ingresados");
 			}
 		}
 	}
@@ -67,7 +65,7 @@ function SignIn() {
 					}}
 				>
 					<div className="form-group">
-						<label for="username">Login</label>
+						<label htmlFor="username">Login</label>
 						<input
 							type="text"
 							className="form-control"
@@ -80,7 +78,7 @@ function SignIn() {
 					</div>
 
 					<div className="form-group">
-						<label for="password">Password</label>
+						<label htmlFor="password">Password</label>
 						<input
 							type="password"
 							className="form-control"
