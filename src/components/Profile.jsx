@@ -16,6 +16,7 @@ const Profile = () => {
 
   const [profile, setProfile] = useState({});
   const [tweet, setTweet] = useState([]);
+  const [tweetLength, setTweetLength] = useState(0);
   const [refresh, setRefresh] = useState(false);
   const [following, setFollowing] = useState(false);
   const [followingCount, setFollowingCount] = useState(0);
@@ -35,6 +36,7 @@ const Profile = () => {
       const { user, tweets } = await response.json();
       setProfile(user);
       setTweet(tweets);
+      setTweetLength(tweets.length);
       setFollowing(loggedUser.following.some((arrVal) => user._id === arrVal));
       setFollowingCount(user.followingCount);
       setFollowersCount(user.followersCount);
@@ -50,14 +52,17 @@ const Profile = () => {
       setFollowersCount((prev) => prev - 1);
     }
     try {
-      await fetch(`http://localhost:3001/${following ? "unfollow" : "follow"}/${profile._id}`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await fetch(
+        `http://localhost:3001/${following ? "unfollow" : "follow"}/${profile._id}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const action = following ? "SET_UNFOLLOW" : "SET_FOLLOW";
       dispatch({
         type: `${action}`,
@@ -67,94 +72,82 @@ const Profile = () => {
       return alert("Error en follow");
     }
   }
-
-  /*    async function handlerUnfollow() {
-        cambiar el boton a unfollow
-    } */
-
   return (
     <div>
-      <Modal />
-      <ModalTweet refresh={refresh} setRefresh={setRefresh} />
       <div className="row">
-        <div className="col-3">
+        <div className="col-md-3">
           <LeftPanel />
         </div>
 
         {/* <!--middle block--> */}
-        <div className="col-lg-6 col-md-11 col-10">
-          <main>
-            <div className="first-part">
-              <div>
-                <Link className="home">Home</Link>
+        <div className="col-md-6">
+          <div class="row g-2 p-0">
+            <div class="col-1 pt-2">
+              <Link to="/">
+                <i class="fas fa-arrow-left flecha p-3"></i>
+              </Link>
+            </div>
+            <div class="col-11 pt-2 px-3">
+              <h4 class="my-0 bold">
+                {profile.firstname} {profile.lastname}
+              </h4>
+              <p class="my-0">{tweetLength} Tweets</p>
+            </div>
+          </div>
+          <div className="px-3">
+            <img
+              src={`${profile.photo}`}
+              className="img-fluid rounded-circle profileImg w-25 imagehover"
+              alt="Responsive image"
+            />
+            <h5 className="bold pt-4">
+              {profile.firstname} {profile.lastname}
+            </h5>
+            <p className="mb-0">@{profile.username}</p>
+            <i className="far fa-calendar-alt"></i>
+            <div className="row">
+              <div className="col">
+                {/* <Link to={`/${profile.username}/following`} className="link me-2"> */}
+                <strong> {followingCount} </strong> {`Following  `}
+                {/* </Link> */}
+                {/* <Link to={`/${profile.username}/followers`} className="link me-2"> */}
+                <strong>{followersCount && followersCount}</strong> Followers
+                {/* </Link> */}
               </div>
-              <div>
-                <i className="far fa-star"></i>
+              <div class="col text-end">
+                {profile.username !== loggedUser.username && (
+                  <button onClick={handleFollow} className="btn rounded-pill follow">
+                    {following === false ? "Follow" : "Unfollow"}
+                  </button>
+                )}
               </div>
             </div>
-            <div className="whats-happening">
-              <div
-                className="post-blocks"
-                style={{
-                  backgroundImage: `url(${profile.backgroundPhoto})`,
-                  objectPosition: " 10% 50%",
-                }}
-              >
-                <div className="post-profile">
-                  <p>BackgroundPhoto</p>
-                </div>
-                <div className="post-profile">
-                  <img src={`${profile.photo}`} className="avatar" alt="Avatar" />
-                  <span>{profile.username}</span>
-                  <span>Following: {followingCount}</span>
-                  <span>Followers:{followersCount}</span>
-                </div>
-                {/* {loggedUser && loggedUser.user.username !== username} */}
-                {profile._id !== loggedUser._id &&
-                  (!following ? (
-                    <button
-                      onClick={() => {
-                        handleFollow();
-                      }}
-                    >
-                      Follow
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        handleFollow();
-                      }}
-                    >
-                      Unfollow
-                    </button>
-                  ))}
-              </div>
-              {/* <div className="post-icons">
-								<div className="second-post-icons">
-									<i className="far fa-circle"></i>
-									<i className="fas fa-plus-circle"></i>
-									<Link to={`/edit/${profile.username}`}>
-										Edit Profile
-									</Link>
-								</div>
-							</div> */}
-              {/* <form action="/create" method="POST"></form>*/}
-            </div>
-          </main>
+            <h5 className="bold pt-4">Bio</h5>
+            <p> {profile.description} </p>
+            <h4 className="mt-5 fontBlue">Tweets</h4>
+          </div>
 
           {/* <!--TWEEEEEETS-->  */}
           <section id="tweets">
-            {/* <!--1 tweet--> */}
             {tweet.map((tweet) => {
-              return <Tweet tweet={tweet} setTweet={setTweet} setRefresh={setRefresh} refresh={refresh} />;
+              return (
+                <Tweet
+                  tweet={tweet}
+                  setTweet={setTweet}
+                  setRefresh={setRefresh}
+                  refresh={refresh}
+                />
+              );
             })}
-            {/* <!--1 tweet--> }*/}
           </section>
         </div>
-        <div className="col-3">
+
+        <div className="col-md-3">
           <RightPanel />
         </div>
       </div>
+      <Modal />
+      <ModalTweet refresh={refresh} setRefresh={setRefresh} />
     </div>
   );
 };

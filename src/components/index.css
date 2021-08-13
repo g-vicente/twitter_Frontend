@@ -260,4 +260,12 @@ body .avatar {
   float: left;
 }
 
+.bold {
+  font-weight: 800;
+}
+
+.fontBlue {
+  color: #32a4eb;
+}
+
 /*# sourceMappingURL=index.css.map */
