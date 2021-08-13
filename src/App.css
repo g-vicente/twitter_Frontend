@@ -8,3 +8,28 @@ body {
   height: 60px;
   width: 60px;
 }
+
+.heart {
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+.heart .fas {
+  color: rgb(248, 38, 38);
+}
+
+.trashicon {
+  position: relative;
+  top: 1rem;
+  left: 26rem;
+  right: 0rem;
+  border: none;
+  background-color: black;
+  color: rgb(238, 145, 145);
+}
+
+.message {
+  height: 5rem;
+  padding-left: 0.5rem;
+}

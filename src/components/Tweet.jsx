@@ -80,6 +80,17 @@ function Tweet({ tweet, setTweet }) {
           <img className="" src={`${tweet.author.photo}`} alt="Avatar" />
         </div>
         <div className="tweet-txt col-10">
+          {tweet.author._id === loggedUser._id && (
+            <button
+              className="trashicon"
+              onClick={() => {
+                // setDeleteTweet(true);
+                handleDelete();
+              }}
+            >
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          )}
           <div className="tweet-name-date">
             <Link to={`/${tweet.author.username}`}>
               <strong> {tweet.author.firstname}</strong>
@@ -87,30 +98,29 @@ function Tweet({ tweet, setTweet }) {
             </Link>
             -<span className="date">{!moment(tweet.date).isBefore(moment().startOf("day")) ? moment(tweet.date, "YYYYMMDD").fromNow() : moment(tweet.date, "YYYYMMDD").format("MMM Do YY")}</span>
           </div>
-          <div className="message">{tweet.content}</div>
+          <div className="message d-flex align-items-center">{tweet.content}</div>
           <div className="tweet-icons d-flex justify-content-between px-2">
-            <div>
-              <i className="far fa-comment"></i>
-              <i className="fas fa-retweet"></i>
-              <button
-                onClick={() => {
-                  handleLike();
-                }}
-              >
-                {like ? <i className="fas fa-heart">{countLike}</i> : <i className="far fa-heart">{countLike}</i>}
-              </button>
-              <i className="fas fa-external-link-alt"></i>
+            <div className="row w-100">
+              <div className="col-3">
+                <i className="far fa-comment"></i>
+              </div>
+              <div className="col-3">
+                <i className="fas fa-retweet"></i>
+              </div>
+              <div className="col-3">
+                <button
+                  className="heart shadow"
+                  onClick={() => {
+                    handleLike();
+                  }}
+                >
+                  {like ? <i className="fas fa-heart">{countLike}</i> : <i className="far fa-heart">{countLike}</i>}
+                </button>
+              </div>
+              <div className="col-3">
+                <i className="fas fa-external-link-alt"></i>
+              </div>
             </div>
-            {tweet.author._id === loggedUser._id && (
-              <button
-                onClick={() => {
-                  // setDeleteTweet(true);
-                  handleDelete();
-                }}
-              >
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            )}
           </div>
         </div>
       </div>
