@@ -12,14 +12,16 @@ function Dashboard() {
 
   const [tweet, setTweet] = useState([]);
   const [newTweet, setNewTweet] = useState("");
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     async function getTweets() {
       try {
+        console.log(token);
         const data = {
           following: loggedUser.following,
           _id: loggedUser._id,
-          token: loggedUser.token,
+          // token: loggedUser.token,
         };
         const response = await fetch("http://localhost:3001/", {
           method: "POST",
@@ -37,7 +39,7 @@ function Dashboard() {
       }
     }
     getTweets();
-  }, [tweet]);
+  }, [refresh]);
 
   async function handleTweet() {
     if (newTweet) {
@@ -61,6 +63,7 @@ function Dashboard() {
           payload: createdTweet._id,
         });
         setNewTweet("");
+        setRefresh(!refresh);
       } catch {
         // return alert("Algo salio mal. Verifica los datos ingresados hola");
       }
@@ -103,7 +106,7 @@ function Dashboard() {
               </form>
             </div>
             {tweet.map((item) => {
-              return <Tweet tweet={item} />;
+              return <Tweet tweet={item} setRefresh={setRefresh} refresh={refresh} />;
             })}
           </div>
         </div>

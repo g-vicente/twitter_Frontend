@@ -4,7 +4,7 @@ import moment from "moment";
 import { Link, useParams } from "react-router-dom";
 import "./index.css";
 
-function Tweet({ tweet, setTweet }) {
+function Tweet({ tweet, setTweet, setRefresh, refresh }) {
   const { loggedUser } = useSelector((state) => state.tweetReducer);
   const { token } = useSelector((state) => state.authReducer);
 
@@ -36,6 +36,7 @@ function Tweet({ tweet, setTweet }) {
         type: "TWEET_DELETE",
         payload: tweet._id,
       });
+      setRefresh(!refresh);
     } catch {
       return alert("Algo salio mal en Delete");
     }

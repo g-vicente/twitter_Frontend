@@ -14,6 +14,7 @@ const Profile = () => {
 
   const [profile, setProfile] = useState({});
   const [tweet, setTweet] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   const [following, setFollowing] = useState(false);
   const [followingCount, setFollowingCount] = useState(0);
   const [followersCount, setFollowersCount] = useState(0);
@@ -37,7 +38,7 @@ const Profile = () => {
       setFollowersCount(user.followersCount);
     }
     api();
-  }, []);
+  }, [username, refresh]);
 
   async function handleFollow() {
     setFollowing((prev) => !prev);
@@ -141,7 +142,7 @@ const Profile = () => {
           <section id="tweets">
             {/* <!--1 tweet--> */}
             {tweet.map((tweet) => {
-              return <Tweet tweet={tweet} setTweet={setTweet} />;
+              return <Tweet tweet={tweet} setTweet={setTweet} setRefresh={setRefresh} refresh={refresh} />;
             })}
             {/* <!--1 tweet--> }*/}
           </section>
