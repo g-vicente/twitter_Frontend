@@ -1,94 +1,94 @@
 body {
-	background-color: #151615;
+  background-color: #151615;
 }
 
 div[className="container-fluid"] {
-	min-height: 400px;
+  min-height: 400px;
 }
 div[className="container-fluid"] .left {
-	background-color: #328ef1;
-	min-height: 80%;
-	color: #eae8d4;
+  background-color: #328ef1;
+  min-height: 80%;
+  color: #eae8d4;
 }
 div[className="container-fluid"] .left div[className="rows-3"] {
-	width: 75%;
-	margin: auto;
-	margin-top: 25%;
+  width: 75%;
+  margin: auto;
+  margin-top: 25%;
 }
 div[className="container-fluid"] .right {
-	background-color: #151615;
-	min-height: 80%;
-	padding-bottom: 14%;
-	color: #328ef1;
+  background-color: #151615;
+  min-height: 80%;
+  padding-bottom: 14%;
+  color: #328ef1;
 }
 div[className="container-fluid"] .right #welcome {
-	width: 75%;
-	margin: auto;
-	margin-top: 20%;
-	min-height: 200px;
+  width: 75%;
+  margin: auto;
+  margin-top: 20%;
+  min-height: 200px;
 }
 div[className="container-fluid"] .right #welcome .logo-segment {
-	padding: 2% 0%;
+  padding: 2% 0%;
 }
 div[className="container-fluid"] .right #welcome .logo-segment #sideLogin button {
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	-ms-border-radius: 8px;
-	border-radius: 8px;
-	padding: 3px 5px;
-	border: 1px solid #328ef1;
-	color: #328ef1;
-	background-color: #151615;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px;
+  padding: 3px 5px;
+  border: 1px solid #328ef1;
+  color: #328ef1;
+  background-color: #151615;
 }
 div[className="container-fluid"] .right #welcome div[className="logo-segment"] {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 div[className="container-fluid"] .right #welcome h2,
 div[className="container-fluid"] .right #welcome h4 {
-	color: #eae8d4;
+  color: #eae8d4;
 }
 div[className="container-fluid"] .right #welcome div[id="signUp"] button,
 div[className="container-fluid"] .right #welcome div[id="signIn"] button {
-	display: block;
-	width: 100%;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	-ms-border-radius: 8px;
-	border-radius: 8px;
-	padding: 7px;
+  display: block;
+  width: 100%;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px;
+  padding: 7px;
 }
 div[className="container-fluid"] .right #welcome #signUp button {
-	color: #eae8d4;
-	border: 1px solid #328ef1;
-	background-color: #328ef1;
+  color: #eae8d4;
+  border: 1px solid #328ef1;
+  background-color: #328ef1;
 }
 div[className="container-fluid"] .right #welcome #signIn button {
-	border: 1px solid #328ef1;
-	color: #328ef1;
-	background-color: #151615;
+  border: 1px solid #328ef1;
+  color: #328ef1;
+  background-color: #151615;
 }
 
 footer {
-	display: flex;
-	flex-direction: row;
-	background-color: #151615;
-	color: #92928b;
-	justify-content: space-between;
-	font-size: 0.7em;
+  display: flex;
+  flex-direction: row;
+  background-color: #151615;
+  color: #92928b;
+  justify-content: space-between;
+  font-size: 0.7em;
 }
 footer div {
-	padding: 3px 5px;
+  padding: 3px 5px;
 }
 @media screen and (max-width: 938px) {
-	footer {
-		display: block;
-	}
-	footer div {
-		font-size: 0.5em;
-		text-align: center;
-	}
+  footer {
+    display: block;
+  }
+  footer div {
+    font-size: 0.5em;
+    text-align: center;
+  }
 }
 
 /*# sourceMappingURL=home.css.map */

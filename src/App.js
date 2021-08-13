@@ -19,8 +19,8 @@ function App() {
         <ModalTweet />
         <Switch>
           <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/index" component={Index} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/index" component={Index} />
           <Route exact path="/edit/:username" component={EditProfile} />
           <Route path="/:username" component={Profile} />
           <PrivateRoute exact path="/" component={Dashboard} />
