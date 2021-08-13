@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./dashboard.css";
 
-function TweetModal() {
+function TweetModal({ refresh, setRefresh }) {
   const { token } = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
 
@@ -31,13 +31,15 @@ function TweetModal() {
           type: `CREATE_TWEET`,
           payload: createdTweet._id,
         });
+        setNewTweet("");
+        setRefresh(!refresh);
       } catch {
         // return alert("Algo salio mal. Verifica los datos ingresados hola");
       }
     }
   }
   return (
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered text-dark">
       <div class="modal fade" id="ModalTweet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">

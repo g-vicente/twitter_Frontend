@@ -20,17 +20,9 @@ function LeftPanel() {
   }
 
   return (
-    <>
+    <div className="position-fixed">
       <div>
         <div className="sidebar">
-          <button
-            onClick={(event) => {
-              handleLogOut();
-              event.preventDefault();
-            }}
-          >
-            LogOut
-          </button>
           <i className="fab fa-twitter"></i>
           <div className="sidebarOption active">
             <span className="material-icons"> home </span>
@@ -92,7 +84,18 @@ function LeftPanel() {
                 <% } %> */}
         </div>
       </div>
-    </>
+      <div className="d-flex justify-content-center">
+        <button
+          className="logout  rounded-pill"
+          onClick={(event) => {
+            handleLogOut();
+            event.preventDefault();
+          }}
+        >
+          LogOut
+        </button>
+      </div>
+    </div>
   );
 }
 

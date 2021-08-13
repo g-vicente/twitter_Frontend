@@ -7,16 +7,12 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Index from "./components/Index";
 import NoMatch from "./components/NoMatch";
-import Modal from "./components/Modal";
-import ModalTweet from "./components/ModalTweet";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Modal />
-        <ModalTweet />
+      <div>
         <Switch>
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/signup" component={SignUp} />

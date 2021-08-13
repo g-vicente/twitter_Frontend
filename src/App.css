@@ -14,22 +14,48 @@ body {
   color: white;
   border: none;
 }
+.heart:hover {
+  color: rgb(247, 71, 71);
+}
 
 .heart .fas {
-  color: rgb(248, 38, 38);
+  color: rgb(247, 71, 71);
 }
 
 .trashicon {
   position: relative;
   top: 1rem;
-  left: 26rem;
+  left: 28rem;
   right: 0rem;
   border: none;
   background-color: black;
-  color: rgb(238, 145, 145);
+  color: rgb(167, 167, 167);
 }
 
 .message {
   height: 5rem;
   padding-left: 0.5rem;
+}
+
+.logout {
+  width: 5rem;
+  height: 2rem;
+  background-color: black;
+  border: none;
+  color: white;
+  margin-top: 8rem;
+}
+
+.logout:hover {
+  background-color: red;
+}
+
+.border-gray {
+  border: 1px;
+  border-color: rgb(47, 47, 47) !important;
+}
+
+.tweet-1:hover {
+  background-color: rgb(47, 47, 47);
+  cursor: pointer;
 }

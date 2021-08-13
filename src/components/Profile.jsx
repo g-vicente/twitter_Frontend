@@ -5,6 +5,8 @@ import "./index.css";
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
 import Tweet from "./Tweet";
+import Modal from "./Modal";
+import ModalTweet from "./ModalTweet";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -72,6 +74,8 @@ const Profile = () => {
 
   return (
     <div>
+      <Modal />
+      <ModalTweet refresh={refresh} setRefresh={setRefresh} />
       <div className="row">
         <div className="col-3">
           <LeftPanel />
