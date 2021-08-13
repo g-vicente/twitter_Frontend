@@ -1,3 +1,7 @@
+body {
+  background-color: red;
+}
+
 .post__avatar {
   padding: 20px;
   border-radius: 50%;

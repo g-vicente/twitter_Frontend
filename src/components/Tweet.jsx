@@ -10,7 +10,7 @@ function Tweet({ tweet, setTweet }) {
 
   const dispatch = useDispatch();
 
-  const [like, setLike] = useState(loggedUser.tweetsLiked.some((arrVal) => tweet._id === arrVal.toString()));
+  const [like, setLike] = useState(loggedUser.tweetsLiked.some((arrVal) => tweet._id === arrVal));
   const [countLike, setCountLike] = useState(tweet.likes);
   const [tweetId, setTweetId] = useState("");
   // const [deleteTweet, setDeleteTweet] = useState(false);
@@ -43,14 +43,16 @@ function Tweet({ tweet, setTweet }) {
   }
 
   function handleLike() {
-    setCountLike((prev) => (!like ? prev + 1 : prev - 1));
+    setTweetId(tweet._id);
+    setCountLike((prev) => (like ? prev - 1 : prev + 1));
+    setLike(!like);
     async function apiLike() {
       try {
         const data = {
           _id: loggedUser._id,
           token: loggedUser.token,
         };
-        await fetch(`${process.env.REACT_APP_API_URL}/${like ? "like" : "unlike"}/${tweetId}`, {
+        await fetch(`${process.env.REACT_APP_API_URL}/${like ? "unlike" : "like"}/${tweetId}`, {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -59,7 +61,6 @@ function Tweet({ tweet, setTweet }) {
           },
           body: JSON.stringify(data),
         });
-
         const action = like ? "SET_LIKE" : "SET_UNLIKE";
         dispatch({
           type: `${action}`,
@@ -91,27 +92,13 @@ function Tweet({ tweet, setTweet }) {
             <div>
               <i className="far fa-comment"></i>
               <i className="fas fa-retweet"></i>
-              {!loggedUser.tweetsLiked.some((arrVal) => tweet._id === arrVal.toString()) ? (
-                <button
-                  onClick={() => {
-                    setTweetId(tweet._id);
-                    setLike((prev) => !prev);
-                    handleLike();
-                  }}
-                >
-                  <i className="far fa-heart">{countLike}</i>
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    setTweetId(tweet._id);
-                    setLike((prev) => !prev);
-                    handleLike();
-                  }}
-                >
-                  <i className="fas fa-heart">{countLike}</i>
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  handleLike();
+                }}
+              >
+                {like ? <i className="fas fa-heart">{countLike}</i> : <i className="far fa-heart">{countLike}</i>}
+              </button>
               <i className="fas fa-external-link-alt"></i>
             </div>
             {tweet.author._id === loggedUser._id && (

@@ -42,7 +42,6 @@ function Dashboard() {
   async function handleTweet() {
     if (newTweet) {
       try {
-        setNewTweet("");
         const data = {
           content: newTweet,
         };
@@ -61,6 +60,7 @@ function Dashboard() {
           type: `CREATE_TWEET`,
           payload: createdTweet._id,
         });
+        setNewTweet("");
       } catch {
         // return alert("Algo salio mal. Verifica los datos ingresados hola");
       }
@@ -68,7 +68,7 @@ function Dashboard() {
   }
 
   return (
-    <div>
+    <div className="container">
       <div className="row">
         <div className="col-3">
           <LeftPanel />
@@ -80,8 +80,8 @@ function Dashboard() {
 		<!-- sidebar ends --> */}
 
           {/* <!-- feed starts --> */}
-          <div className="feed">
-            <div className="feed__header">
+          <div className="">
+            <div className="">
               <h2>Home</h2>
             </div>
 
