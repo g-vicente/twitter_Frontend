@@ -79,8 +79,6 @@ function Dashboard() {
 
   return (
     <div className="container">
-      <Modal />
-      <ModalTweet refresh={refresh} setRefresh={setRefresh} />
       <div className="row">
         <div className="col-3">
           <LeftPanel />
@@ -135,6 +133,8 @@ function Dashboard() {
           <RightPanel />
         </div>
       </div>
+      <Modal />
+      <ModalTweet refresh={refresh} setRefresh={setRefresh} />
     </div>
   );
 }

@@ -9,17 +9,22 @@ body {
   width: 60px;
 }
 
-.heart {
-  background-color: black;
-  color: white;
-  border: none;
-}
-.heart:hover {
+.fa-heart:hover {
   color: rgb(247, 71, 71);
 }
 
-.heart .fas {
+.liked {
   color: rgb(247, 71, 71);
+}
+
+.fa-comment:hover {
+  color: rgb(71, 109, 247);
+}
+.fa-external-link-alt:hover {
+  color: rgb(71, 109, 247);
+}
+.fa-retweet:hover {
+  color: rgb(35, 147, 18);
 }
 
 .trashicon {

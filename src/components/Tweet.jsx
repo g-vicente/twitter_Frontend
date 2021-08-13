@@ -94,27 +94,36 @@ function Tweet({ tweet, setRefresh, refresh }) {
             </Link>
             -<span className="date">{!moment(tweet.date).isBefore(moment().startOf("day")) ? moment(tweet.date, "YYYYMMDD").fromNow() : moment(tweet.date, "YYYYMMDD").format("MMM Do YY")}</span>
           </div>
-          <div className="message d-flex align-items-center">{tweet.content}</div>
+          <div className="message d-flex align-items-center" data-bs-toggle="modal" data-bs-target={`#Modal`}>
+            {tweet.content}
+          </div>
           <div className="tweet-icons d-flex justify-content-between px-2">
             <div className="row w-100">
               <div className="col-3">
-                <i className="far fa-comment"></i>
+                <i className="far fa-comment" data-bs-toggle="modal" data-bs-target={`#Modal`}></i>
               </div>
               <div className="col-3">
-                <i className="fas fa-retweet"></i>
+                <i className="fas fa-retweet" data-bs-toggle="modal" data-bs-target={`#Modal`}></i>
               </div>
               <div className="col-3">
-                <button
-                  className="heart shadow"
-                  onClick={() => {
-                    handleLike();
-                  }}
-                >
-                  {like ? <i className="fas fa-heart">{`  ${countLike}`}</i> : <i className="far fa-heart">{`  ${countLike}`}</i>}
-                </button>
+                {like ? (
+                  <i
+                    className="fas fa-heart liked shadow"
+                    onClick={() => {
+                      handleLike();
+                    }}
+                  >{`  ${countLike}`}</i>
+                ) : (
+                  <i
+                    className="far fa-heart shadow"
+                    onClick={() => {
+                      handleLike();
+                    }}
+                  >{`  ${countLike}`}</i>
+                )}
               </div>
               <div className="col-3">
-                <i className="fas fa-external-link-alt"></i>
+                <i className="fas fa-external-link-alt" data-bs-toggle="modal" data-bs-target={`#Modal`}></i>
               </div>
             </div>
           </div>
