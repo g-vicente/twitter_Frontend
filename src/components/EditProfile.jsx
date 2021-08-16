@@ -19,7 +19,7 @@ function EditProfile() {
       console.log(e);
       let formData = new FormData(e.target);
       await fetch(`${process.env.REACT_APP_API_URL}/users`, {
-        method: "POST",
+        method: "PATCH",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",

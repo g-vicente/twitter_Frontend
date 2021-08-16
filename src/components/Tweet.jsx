@@ -101,8 +101,8 @@ function Tweet({ tweet, setRefresh, refresh }) {
             -
             <span className="date">
               {moment(tweet.date).isBefore(moment().startOf("day"))
-                ? moment(tweet.date, "YYYYMMDD").format("MMM Do YY")
-                : moment(tweet.date, "YYYYMMDD").fromNow()}
+                ? moment(tweet.date).format("MMM Do YY")
+                : moment(tweet.date).fromNow()}
             </span>
           </div>
           <div
