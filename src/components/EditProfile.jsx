@@ -1,109 +1,112 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function EditProfile() {
-	return (
-		<div>
-			<div className="ruban">
-				<div className="inner-content">
-					<div className="logo">
-						<a href="/login">
-							<i className="fab fa-twitter"></i>
-							Log In
-						</a>
-					</div>
-					<div>About</div>
-				</div>
-			</div>
+  // const dispatch = useDispatch();
+  const { loggedUser } = useSelector((state) => state.tweetReducer);
+  const { token } = useSelector((state) => state.authReducer);
+  let myForm = document.getElementById("myForm");
+  // const { username } = useParams();
 
-			<div id="sign-up">
-				<div className="logo">
-					<a href="index.html">
-						<i className="fab fa-twitter fa-2x"></i>
-					</a>
-				</div>
-				<form
-					action="/userUpdate/<%=loggedUser.id%>"
-					method="POST"
-					enctype="multipart/form-data"
-				>
-					<label for="photo">Profile Picture</label>
-					<div className="row">
-						<div className="col-2"></div>
-						<div className="col-10">
-							<div className="form-group">
-								<div className="custom-file">
-									<input
-										type="file"
-										className="custom-file-input"
-										name="photo"
-										id="photo"
-									/>
-									<label className="custom-file-label" for="photo">
-										Choose file
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="form-group">
-						<label for="backgroundPhoto">Background Picture</label>
-						<div className="form-group">
-							<div className="custom-file">
-								<input
-									type="file"
-									className="custom-file-input"
-									name="backgroundPhoto"
-								/>
-								<label
-									className="custom-file-label"
-									for="backgroundPhoto"
-								>
-									Choose file
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="form-group">
-						<label for="firstname">First Name</label>
-						<input
-							type="text"
-							className="form-control"
-							name="firstname"
-							id="firstname"
-							value="<%= user.firstname %>"
-						/>
-					</div>
-					<div className="form-group">
-						<label for="lastname">Last Name</label>
-						<input
-							type="text"
-							className="form-control"
-							id="lastname"
-							name="lastname"
-							value="<%= user.lastname %>"
-						/>
-					</div>
-					<div className="form-group"></div>
-					<div className="form-group">
-						<label for="description">Description</label>
-						<textarea
-							type="text"
-							className="form-control"
-							id="description"
-							name="description"
-							placeholder="Description"
-							cols="30"
-							rows="10"
-						></textarea>
-					</div>
+  async function submit(e) {
+    try {
+      let formData = new FormData(e.target);
+      await fetch(`${process.env.REACT_APP_API_URL}/user`, {
+        method: "PATCH",
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-					<button type="submit" className="btn btn-primary">
-						Save
-					</button>
-				</form>
-			</div>
-		</div>
-	);
+      // dispatch({
+      //   type: "TWEET_DELETE",
+      //   payload: tweet._id,
+      // });
+      // setRefresh(!refresh);
+    } catch {
+      return alert("Error en el Update");
+    }
+  }
+
+  return (
+    <div>
+      <div id="sign-up">
+        <div class="logo">
+          <Link to="/">
+            <i class="fab fa-twitter fa-2x"></i>
+          </Link>
+        </div>
+        <form onSubmit={(e) => submit(e)} className="bg-secondary rounded shadow p-4">
+          <label for="photo">Profile Picture</label>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="photo" id="photo" />
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <img
+                src={`/${loggedUser.photo}`}
+                className="img-fluid rounded-circle profileImg w-25 imagehover"
+                alt="Current profile photo"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="backgroundPhoto">Background Picture</label>
+            <div class="form-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="backgroundPhoto" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="firstname"
+              id="firstname"
+              value={`${loggedUser.firstname}`}
+            />
+          </div>
+          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastname"
+              name="lastname"
+              value={`${loggedUser.lastname}`}
+            />
+          </div>
+          <div class="form-group"></div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="description"
+              name="description"
+              placeholder="Description"
+              value={`${loggedUser.description}`}
+              cols="30"
+              rows="10"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default EditProfile;
