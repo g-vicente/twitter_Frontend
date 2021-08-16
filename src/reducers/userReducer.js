@@ -43,6 +43,10 @@ export default function userReducer(
 					}
 					return { ...item, likes: item.likes + 1 };
 				}),
+				profile: {
+					...state.profile,
+					tweetsLiked: [...state.profile.tweetsLiked, action.payload],
+				},
 			};
 		}
 		case "SET_UNLIKE": {
@@ -56,12 +60,21 @@ export default function userReducer(
 						),
 					],
 				},
+
 				tweets: state.tweets.map((item) => {
 					if (item._id !== action.payload) {
 						return { ...item };
 					}
 					return { ...item, likes: item.likes - 1 };
 				}),
+				profile: {
+					...state.profile,
+					tweetsLiked: [
+						...state.profile.tweetsLiked.filter(
+							(tweet) => tweet !== action.payload
+						),
+					],
+				},
 			};
 		}
 		case "SET_FOLLOW": {

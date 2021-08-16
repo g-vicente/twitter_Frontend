@@ -5,15 +5,15 @@ import { useHistory } from "react-router-dom";
 import "./signup.css";
 
 function SignUp() {
+	const dispatch = useDispatch();
+	const history = useHistory();
+
 	const [userName, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [firstname, setFirstname] = useState("");
 	const [lastname, setLastname] = useState("");
 	const [email, setEmail] = useState("");
 	const [newUserSeeder, setNewUserSeeder] = useState("");
-
-	const dispatch = useDispatch();
-	const history = useHistory();
 
 	async function handleSignUp() {
 		if (userName && password) {
@@ -27,7 +27,7 @@ function SignUp() {
 					newUserSeeder: newUserSeeder,
 				};
 
-				const response = await fetch("http://localhost:3001/usercreate", {
+				const response = await fetch(`${process.env.REACT_APP_API_URL}/user`, {
 					method: "POST",
 					headers: {
 						Accept: "application/json",
@@ -67,7 +67,7 @@ function SignUp() {
 			<div className="ruban">
 				<div className="inner-content">
 					<div className="logo">
-						<Link to={`/login`}>
+						<Link to={`/signin`}>
 							<i className="fab fa-twitter"></i>
 							Log In
 						</Link>

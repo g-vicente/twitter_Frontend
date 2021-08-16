@@ -16,15 +16,6 @@ function LeftPanel() {
 		dispatch({
 			type: "CLEAR_DATA",
 		});
-
-		// fetch("http://localhost:3001/tokens", {
-		// 	method: "DELETE",
-		// 	headers: {
-		// 		Accept: "application/json",
-		// 		"Content-Type": "application/json",
-		// 		Authorization: `Bearer ${token}`,
-		// 	},
-		// });
 		history.push("/signin");
 	}
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
-import { Link, useParams } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import "./index.css";
 
 function Tweet({ tweet, setRefresh, refresh }) {
@@ -9,6 +9,7 @@ function Tweet({ tweet, setRefresh, refresh }) {
 	const { token } = useSelector((state) => state.authReducer);
 
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const [tweetId, setTweetId] = useState(tweet._id);
 	const [like, setLike] = useState(
@@ -48,29 +49,33 @@ function Tweet({ tweet, setRefresh, refresh }) {
 		setTweetId(tweet._id);
 		setCountLike((prev) => (like ? prev - 1 : prev + 1));
 		setLike(!like);
-		async function apiLike() {
-			try {
-				await fetch(`${process.env.REACT_APP_API_URL}/tweet/${tweetId}`, {
-					method: "PATCH",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-				});
-			} catch {
-				return alert("Algo salio mal en Like/UnLike");
+		if (token) {
+			async function apiLike() {
+				try {
+					await fetch(`${process.env.REACT_APP_API_URL}/tweet/${tweetId}`, {
+						method: "PATCH",
+						headers: {
+							Accept: "application/json",
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+					});
+				} catch {
+					return alert("Algo salio mal en Like/UnLike");
+				}
 			}
+
+			const action = !like ? "SET_LIKE" : "SET_UNLIKE";
+			dispatch({
+				type: `${action}`,
+				payload: tweetId,
+			});
+			apiLike();
+		} else {
+			alert("Debe estar loggeado para poder hacer Like");
+			history.push("/signin");
 		}
-		const action = !like ? "SET_LIKE" : "SET_UNLIKE";
-		dispatch({
-			type: `${action}`,
-			payload: tweetId,
-		});
-
-		apiLike();
 	}
-
 	return (
 		<div>
 			<div className="row tweet-1 border border-gray pb-2">

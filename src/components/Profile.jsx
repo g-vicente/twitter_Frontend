@@ -23,7 +23,6 @@ const Profile = () => {
 	const [followersCount, setFollowersCount] = useState(0);
 
 	useEffect(() => {
-		console.log("entro al useeffect");
 		async function api() {
 			const response = await fetch(`${process.env.REACT_APP_API_URL}/${username}`, {
 				method: "GET",
@@ -41,8 +40,7 @@ const Profile = () => {
 				type: `SET_TWEETS`,
 				payload: tweets,
 			});
-			// setProfile(user);
-			// setTweet(tweets);
+			console.log(tweets);
 			setTweetLength(tweets.length);
 			if (token) {
 				setFollowing(loggedUser.following.some((arrVal) => user._id === arrVal));
@@ -61,19 +59,14 @@ const Profile = () => {
 			setFollowersCount((prev) => prev - 1);
 		}
 		try {
-			await fetch(
-				`${process.env.REACT_APP_API_URL}/${following ? "unfollow" : "follow"}/${
-					profile._id
-				}`,
-				{
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
+			await fetch(`${process.env.REACT_APP_API_URL}/follow/${profile._id}`, {
+				method: "PATCH",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			});
 			const action = following ? "SET_UNFOLLOW" : "SET_FOLLOW";
 			dispatch({
 				type: `${action}`,

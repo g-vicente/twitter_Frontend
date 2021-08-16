@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import "./dashboard.css";
 
 function TweetModal({ refresh, setRefresh }) {
-	const { token } = useSelector((state) => state.authReducer);
 	const dispatch = useDispatch();
 
-	const [tweet, setTweet] = useState([]);
+	const { token } = useSelector((state) => state.authReducer);
+
 	const [newTweet, setNewTweet] = useState("");
 
 	async function handleTweet() {
@@ -16,7 +16,7 @@ function TweetModal({ refresh, setRefresh }) {
 				const data = {
 					content: newTweet,
 				};
-				const response = await fetch("http://localhost:3001/tweet", {
+				const response = await fetch(`${process.env.REACT_APP_API_URL}/tweet`, {
 					method: "POST",
 					headers: {
 						Accept: "application/json",
@@ -26,7 +26,6 @@ function TweetModal({ refresh, setRefresh }) {
 					body: JSON.stringify(data),
 				});
 				const createdTweet = await response.json();
-				setTweet([...tweet, createdTweet]);
 				dispatch({
 					type: `CREATE_TWEET`,
 					payload: createdTweet,
