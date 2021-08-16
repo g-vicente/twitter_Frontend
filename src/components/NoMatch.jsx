@@ -1,7 +1,7 @@
-function App() {  
+function App() {
   return (
     <div>
-     <p>Error 404 – Página no encontrada</p>
+      <p>Error 404 – Página no encontrada</p>
     </div>
   );
 }
