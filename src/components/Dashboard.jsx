@@ -9,11 +9,11 @@ import Modal from "./Modal";
 import ModalTweet from "./ModalTweet";
 
 function Dashboard() {
-	const { loggedUser, tweets } = useSelector((state) => state.userReducer);
-	const { token } = useSelector((state) => state.authReducer);
 	const dispatch = useDispatch();
 
-	// const [tweet, setTweet] = useState([]);
+	const { loggedUser, tweets } = useSelector((state) => state.userReducer);
+	const { token } = useSelector((state) => state.authReducer);
+
 	const [newTweet, setNewTweet] = useState("");
 	const [refresh, setRefresh] = useState(false);
 	const [page, setPage] = useState(1);
@@ -38,9 +38,7 @@ function Dashboard() {
 
 				if (page <= pagesTotal) {
 					const { tweets, totalPages } = await response.json();
-
 					setPagesTotal(totalPages);
-					// setTweet(tweets);
 					dispatch({
 						type: `SET_USER`,
 						payload: loggedUser,

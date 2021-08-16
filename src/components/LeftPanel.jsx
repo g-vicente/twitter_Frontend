@@ -79,7 +79,7 @@ function LeftPanel() {
 
 					<div className="sidebarOption">
 						<span className="material-icons"> perm_identity </span>
-						<Link to={`/${loggedUser.username}`}>
+						<Link to={`/user/${loggedUser.username}`}>
 							<h2 className="text-white">Profile</h2>
 						</Link>
 					</div>

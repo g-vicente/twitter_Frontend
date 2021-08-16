@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./index.css";
 import LeftPanel from "./LeftPanel";
@@ -13,6 +13,7 @@ const Profile = () => {
 	const { token } = useSelector((state) => state.authReducer);
 	const { loggedUser, tweets, profile } = useSelector((state) => state.userReducer);
 	const { username } = useParams();
+	const history = useHistory();
 
 	// const [profile, setProfile] = useState({});
 	// const [tweet, setTweet] = useState([]);
@@ -24,29 +25,39 @@ const Profile = () => {
 
 	useEffect(() => {
 		async function api() {
-			const response = await fetch(`${process.env.REACT_APP_API_URL}/${username}`, {
-				method: "GET",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-			});
-			const { user, tweets } = await response.json();
-			dispatch({
-				type: `SET_USER`,
-				payload: user,
-			});
-			dispatch({
-				type: `SET_TWEETS`,
-				payload: tweets,
-			});
-			console.log(tweets);
-			setTweetLength(tweets.length);
-			if (token) {
-				setFollowing(loggedUser.following.some((arrVal) => user._id === arrVal));
+			try {
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/user/${username}`,
+					{
+						method: "GET",
+						headers: {
+							Accept: "application/json",
+							"Content-Type": "application/json",
+						},
+					}
+				);
+				const { user, tweets } = await response.json();
+				dispatch({
+					type: `SET_USER`,
+					payload: user,
+				});
+				dispatch({
+					type: `SET_TWEETS`,
+					payload: tweets,
+				});
+				console.log(tweets);
+				setTweetLength(tweets.length);
+				if (token) {
+					setFollowing(
+						loggedUser.following.some((arrVal) => user._id === arrVal)
+					);
+				}
+				setFollowingCount(user.followingCount);
+				setFollowersCount(user.followersCount);
+			} catch {
+				history.push("/");
+				alert("El usuario no existe");
 			}
-			setFollowingCount(user.followingCount);
-			setFollowersCount(user.followersCount);
 		}
 		api();
 	}, [refresh, username]);
@@ -101,7 +112,7 @@ const Profile = () => {
 						</div>
 						<div className="px-3">
 							<img
-								src={`${profile.photo}`}
+								src={`../${profile.photo}`}
 								className="img-fluid rounded-circle profileImg w-25 imagehover"
 								alt="Responsive image"
 							/>

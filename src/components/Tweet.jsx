@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { useHistory, Link } from "react-router-dom";
@@ -80,7 +80,7 @@ function Tweet({ tweet, setRefresh, refresh }) {
 		<div>
 			<div className="row tweet-1 border border-gray pb-2">
 				<div className="post__avatar col-2">
-					<img className="" src={`${tweet.author.photo}`} alt="Avatar" />
+					<img className="" src={`../${tweet.author.photo}`} alt="Avatar" />
 				</div>
 				<div className="tweet-txt col-10">
 					{tweet.author._id === profile._id && (
@@ -94,7 +94,7 @@ function Tweet({ tweet, setRefresh, refresh }) {
 						</button>
 					)}
 					<div className="tweet-name-date">
-						<Link to={`/${tweet.author.username}`}>
+						<Link to={`/user/${tweet.author.username}`}>
 							<strong> {tweet.author.firstname}</strong>
 							<span className="twitter-account">
 								{" "}
