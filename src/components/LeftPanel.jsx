@@ -4,75 +4,112 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 function LeftPanel() {
-  const dispatch = useDispatch();
-  const history = useHistory();
+	const dispatch = useDispatch();
+	const history = useHistory();
 
-  const { loggedUser } = useSelector((state) => state.tweetReducer);
+	const { loggedUser } = useSelector((state) => state.userReducer);
 
-  async function handleLogOut() {
-    dispatch({
-      type: "LOGOUT_REQUEST",
-    });
-    dispatch({
-      type: "CLEAR_DATA",
-    });
-    history.push("/signin");
-  }
+	async function handleLogOut() {
+		dispatch({
+			type: "LOGOUT_REQUEST",
+		});
+		dispatch({
+			type: "CLEAR_DATA",
+		});
 
-  return (
-    <div className="position-fixed">
-      <div>
-        <div className="sidebar">
-          <i className="fab fa-twitter"></i>
-          <div className="sidebarOption active">
-            <span className="material-icons"> home </span>
-            <Link to={`/`}>
-              <h2>Home</h2>
-            </Link>
-          </div>
+		// fetch("http://localhost:3001/tokens", {
+		// 	method: "DELETE",
+		// 	headers: {
+		// 		Accept: "application/json",
+		// 		"Content-Type": "application/json",
+		// 		Authorization: `Bearer ${token}`,
+		// 	},
+		// });
+		history.push("/signin");
+	}
 
-          {/* <% if (loggedUser) { %> */}
-          <div className="sidebarOption" data-bs-toggle="modal" data-bs-target={`#Modal`}>
-            <span className="material-icons"> search </span>
-            <h2>Explore</h2>
-          </div>
+	return (
+		<div className="position-fixed">
+			<div>
+				<div className="sidebar">
+					<i className="fab fa-twitter"></i>
+					<div className="sidebarOption active">
+						<span className="material-icons"> home </span>
+						<Link to={`/`}>
+							<h2>Home</h2>
+						</Link>
+					</div>
 
-          <div className="sidebarOption" data-bs-toggle="modal" data-bs-target={`#Modal`}>
-            <span className="material-icons"> notifications_none </span>
-            <h2>Notifications</h2>
-          </div>
+					{/* <% if (loggedUser) { %> */}
+					<div
+						className="sidebarOption"
+						data-bs-toggle="modal"
+						data-bs-target={`#Modal`}
+					>
+						<span className="material-icons"> search </span>
+						<h2>Explore</h2>
+					</div>
 
-          <div className="sidebarOption" data-bs-toggle="modal" data-bs-target={`#Modal`}>
-            <span className="material-icons"> mail_outline </span>
-            <h2>Messages</h2>
-          </div>
+					<div
+						className="sidebarOption"
+						data-bs-toggle="modal"
+						data-bs-target={`#Modal`}
+					>
+						<span className="material-icons"> notifications_none </span>
+						<h2>Notifications</h2>
+					</div>
 
-          <div className="sidebarOption" data-bs-toggle="modal" data-bs-target={`#Modal`}>
-            <span className="material-icons"> bookmark_border </span>
-            <h2>Bookmarks</h2>
-          </div>
+					<div
+						className="sidebarOption"
+						data-bs-toggle="modal"
+						data-bs-target={`#Modal`}
+					>
+						<span className="material-icons"> mail_outline </span>
+						<h2>Messages</h2>
+					</div>
 
-          <div className="sidebarOption" data-bs-toggle="modal" data-bs-target={`#Modal`}>
-            <span className="material-icons"> list_alt </span>
-            <h2>Lists</h2>
-          </div>
+					<div
+						className="sidebarOption"
+						data-bs-toggle="modal"
+						data-bs-target={`#Modal`}
+					>
+						<span className="material-icons"> bookmark_border </span>
+						<h2>Bookmarks</h2>
+					</div>
 
-          <div className="sidebarOption">
-            <span className="material-icons"> perm_identity </span>
-            <Link to={`/${loggedUser.username}`}>
-              <h2 className="text-white">Profile</h2>
-            </Link>
-          </div>
+					<div
+						className="sidebarOption"
+						data-bs-toggle="modal"
+						data-bs-target={`#Modal`}
+					>
+						<span className="material-icons"> list_alt </span>
+						<h2>Lists</h2>
+					</div>
 
-          <div className="sidebarOption" data-bs-toggle="modal" data-bs-target={`#Modal`}>
-            <span className="material-icons"> more_horiz </span>
-            <h2>More</h2>
-          </div>
+					<div className="sidebarOption">
+						<span className="material-icons"> perm_identity </span>
+						<Link to={`/${loggedUser.username}`}>
+							<h2 className="text-white">Profile</h2>
+						</Link>
+					</div>
 
-          <button className="sidebar__tweet" data-bs-toggle="modal" data-bs-target="#ModalTweet">
-            <h2>Tweet</h2>
-          </button>
-          {/* <% } else { %>
+					<div
+						className="sidebarOption"
+						data-bs-toggle="modal"
+						data-bs-target={`#Modal`}
+					>
+						<span className="material-icons"> more_horiz </span>
+						<h2>More</h2>
+					</div>
+
+					<button
+						className="sidebar__tweet"
+						data-bs-toggle="modal"
+						data-bs-target="#ModalTweet"
+					>
+						<h2>Tweet</h2>
+					</button>
+					{/* <% } else { %>
                 <a type="button" data-bs-toggle="modal" data-bs-target="#Modal">
                     <div className="sidebarOption">
                     <span className="material-icons"> search </span>
@@ -81,21 +118,21 @@ function LeftPanel() {
                 >
 
                 <% } %> */}
-        </div>
-      </div>
-      <div className="d-flex justify-content-center">
-        <button
-          className="logout  rounded-pill"
-          onClick={(event) => {
-            handleLogOut();
-            event.preventDefault();
-          }}
-        >
-          LogOut
-        </button>
-      </div>
-    </div>
-  );
+				</div>
+			</div>
+			<div className="d-flex justify-content-center">
+				<button
+					className="logout  rounded-pill"
+					onClick={(event) => {
+						handleLogOut();
+						event.preventDefault();
+					}}
+				>
+					LogOut
+				</button>
+			</div>
+		</div>
+	);
 }
 
 export default LeftPanel;
